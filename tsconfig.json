@@ -43,6 +43,8 @@
       "@polkadot/app-settings/*": [ "packages/page-settings/src/*" ],
       "@polkadot/app-society": [ "packages/page-society/src" ],
       "@polkadot/app-society/*": [ "packages/page-society/src/*" ],
+      "@polkadot/app-stakedrop": [ "packages/page-stakedrop/src" ],
+      "@polkadot/app-stakedrop/*": [ "packages/page-stakedrop/src/*" ],
       "@polkadot/app-staking": [ "packages/page-staking/src" ],
       "@polkadot/app-staking/*": [ "packages/page-staking/src/*" ],
       "@polkadot/app-storage": [ "packages/page-storage/src" ],

@@ -13,7 +13,8 @@ export default function create (t: <T = string> (key: string, text: string, opti
       needsAccounts: true,
       needsApi: [
         'query.claims.claims'
-      ]
+      ],
+      isHidden: true
     },
     icon: 'star',
     name: 'claims',

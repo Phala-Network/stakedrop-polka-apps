@@ -23,6 +23,7 @@ import js from './js';
 import parachains from './parachains';
 import settings from './settings';
 import society from './society';
+import stakedrop from './stakedrop';
 import staking from './staking';
 import storage from './storage';
 import sudo from './sudo';
@@ -41,6 +42,7 @@ export default function create (t: <T = string> (key: string, text: string, opti
       transfer(t),
       genericAsset(t),
       null,
+      stakedrop(t),
       staking(t),
       democracy(t),
       council(t),
@@ -56,6 +58,7 @@ export default function create (t: <T = string> (key: string, text: string, opti
       transfer(t),
       genericAsset(t),
       null,
+      stakedrop(t),
       staking(t),
       democracy(t),
       council(t),
