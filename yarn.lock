@@ -3129,6 +3129,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@polkadot/app-stakedrop@workspace:packages/page-stakedrop":
+  version: 0.0.0-use.local
+  resolution: "@polkadot/app-stakedrop@workspace:packages/page-stakedrop"
+  dependencies:
+    "@babel/runtime": ^7.9.6
+    "@polkadot/react-components": 0.42.0-beta.116
+  languageName: unknown
+  linkType: soft
+
 "@polkadot/app-staking@workspace:packages/page-staking":
   version: 0.0.0-use.local
   resolution: "@polkadot/app-staking@workspace:packages/page-staking"
