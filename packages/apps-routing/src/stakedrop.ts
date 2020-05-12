@@ -4,16 +4,18 @@
 
 import { Route } from './types';
 
-import Claims from '@polkadot/app-claims';
+import Stakedrop from '@polkadot/app-stakedrop';
 
 export default function create (t: (key: string, text: string, options: { ns: string }) => string): Route {
   return {
-    Component: Claims,
+    Component: Stakedrop,
     display: {
-      isHidden: true
+      needsApi: [
+        ['tx.staking.bond']
+      ]
     },
     icon: 'star',
-    name: 'claims',
-    text: t('nav.claims', 'Claim Tokens', { ns: 'apps-routing' })
+    name: 'stakedrop',
+    text: t('nav.stakedrop', 'Stakedrop', { ns: 'apps-stakedrop' })
   };
 }
