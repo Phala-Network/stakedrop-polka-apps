@@ -57,6 +57,7 @@ i18next
       'app-poll',
       'app-settings',
       'app-society',
+      'app-stakedrop',
       'app-staking',
       'app-storage',
       'app-sudo',
