@@ -58,6 +58,7 @@ i18n
       'app-parachains',
       'app-settings',
       'app-society',
+      'app-stakedrop',
       'app-staking',
       'app-storage',
       'app-sudo',

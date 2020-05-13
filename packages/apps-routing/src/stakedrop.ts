@@ -16,6 +16,6 @@ export default function create (t: (key: string, text: string, options: { ns: st
     },
     icon: 'star',
     name: 'stakedrop',
-    text: t('nav.stakedrop', 'Stakedrop', { ns: 'apps-stakedrop' })
+    text: t('nav.stakedrop', 'Stakedrop', { ns: 'apps-routing' })
   };
 }
