@@ -12,22 +12,24 @@ interface Props {
   className?: string;
   favorites: string[];
   hasQueries: boolean;
-  isIntentions?: boolean;
+  showType: 'validators' | 'intentions' | 'both';
   next?: string[];
   stakingOverview?: DeriveStakingOverview;
   toggleFavorite: (address: string) => void;
+  whitelist?: string[];
 }
 
-function Overview ({ className = '', favorites, hasQueries, isIntentions, next, stakingOverview, toggleFavorite }: Props): React.ReactElement<Props> {
+function Overview ({ className = '', favorites, hasQueries, showType, next, stakingOverview, toggleFavorite, whitelist }: Props): React.ReactElement<Props> {
   return (
     <div className={`staking--Overview ${className}`}>
       <CurrentList
         favorites={favorites}
         hasQueries={hasQueries}
-        isIntentions={isIntentions}
+        showType={showType}
         next={next}
         stakingOverview={stakingOverview}
         toggleFavorite={toggleFavorite}
+        whitelist={whitelist}
       />
     </div>
   );

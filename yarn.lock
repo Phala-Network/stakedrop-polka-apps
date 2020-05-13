@@ -3133,8 +3133,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@polkadot/app-stakedrop@workspace:packages/page-stakedrop"
   dependencies:
-    "@babel/runtime": ^7.9.6
-    "@polkadot/react-components": 0.42.0-beta.116
+    "@babel/runtime": ^7.10.5
+    "@polkadot/react-components": 0.51.0-beta.13
+    axios: ^0.19.2
+    react-countdown: ^2.2.1
   languageName: unknown
   linkType: soft
 
@@ -5911,6 +5913,15 @@ __metadata:
     follow-redirects: 1.5.10
     is-buffer: ^2.0.2
   checksum: 3/6188a1b815733c1b6118eddc70d931caea7f867ca77ade8205e49cd6e457b837460cc4e325e19c66a81190a170fde5b76480878366b3743131977da76d571bec
+  languageName: node
+  linkType: hard
+
+"axios@npm:^0.19.2":
+  version: 0.19.2
+  resolution: "axios@npm:0.19.2"
+  dependencies:
+    follow-redirects: 1.5.10
+  checksum: 3/bad346deea24050f9953ce09bb8015f85a99a7b8f016806adccfab0b8981827d1fbee9c77c0ef7c70cc48392c1af6bbc65e07c3e88221d17282d2d5fd0a191f6
   languageName: node
   linkType: hard
 
@@ -19247,6 +19258,18 @@ __metadata:
   peerDependencies:
     react: ^15.3.0 || ^16.0.0
   checksum: 3/7a0ceebcfde3118302885f115c9992ecf191d2cca5712f7fde9cfc8ad62b98d6d41b647352b408df9cf993c662047a6e55a66b4ae55dc6559a8f82ffb4aa5513
+  languageName: node
+  linkType: hard
+
+"react-countdown@npm:^2.2.1":
+  version: 2.2.1
+  resolution: "react-countdown@npm:2.2.1"
+  dependencies:
+    prop-types: ^15.7.2
+  peerDependencies:
+    react: ">= 15"
+    react-dom: ">= 15"
+  checksum: 3/e8ae8a13d5825676640a9652e701f0ba2e1848438d054a221a8f7f037d319598be738b662e44487858335d4cc63518399b7c3313d10a576df57ce76699da03c5
   languageName: node
   linkType: hard
 

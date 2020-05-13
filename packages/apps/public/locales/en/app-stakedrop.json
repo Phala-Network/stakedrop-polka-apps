@@ -1,1 +1,11 @@
-{}
+{
+  "Calculator": "Calculator",
+  "KSM total staked": "KSM total staked",
+  "KSM x PHA Stakedrop will start in": "KSM x PHA Stakedrop will start in",
+  "My Nomination": "My Nomination",
+  "Overview": "Overview",
+  "PHA total reward (est.)": "PHA total reward (est.)",
+  "Participate": "Participate",
+  "stakedrop participate rate": "stakedrop participate rate",
+  "stakedrop validator whitelist": "stakedrop validator whitelist"
+}

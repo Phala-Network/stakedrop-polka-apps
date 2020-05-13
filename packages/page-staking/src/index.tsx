@@ -135,7 +135,7 @@ function StakingApp ({ basePath, className = '' }: Props): React.ReactElement<Pr
           <Overview
             favorites={favorites}
             hasQueries={hasQueries}
-            isIntentions
+            showType='intentions'
             next={next}
             stakingOverview={stakingOverview}
             toggleFavorite={toggleFavorite}
@@ -154,6 +154,7 @@ function StakingApp ({ basePath, className = '' }: Props): React.ReactElement<Pr
         className={basePath === pathname ? '' : 'staking--hidden'}
         favorites={favorites}
         hasQueries={hasQueries}
+        showType='validators'
         next={next}
         stakingOverview={stakingOverview}
         toggleFavorite={toggleFavorite}
