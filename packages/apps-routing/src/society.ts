@@ -11,6 +11,7 @@ export default function create (t: <T = string> (key: string, text: string, opti
     Component: Society,
     display: {
       needsAccounts: true,
+      isHidden: true,
       needsApi: [
         'query.society.pot'
       ]

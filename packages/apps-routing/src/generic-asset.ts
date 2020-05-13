@@ -10,7 +10,7 @@ export default function create (t: <T = string> (key: string, text: string, opti
   return {
     Component: GenericAsset,
     display: {
-      isHidden: false,
+      isHidden: true,
       needsAccounts: true,
       needsApi: [
         'tx.genericAsset.transfer'

@@ -10,6 +10,7 @@ export default function create (t: <T = string> (key: string, text: string, opti
   return {
     Component: Toolbox,
     display: {
+      isHidden: true,
       needsApi: []
     },
     icon: 'configure',

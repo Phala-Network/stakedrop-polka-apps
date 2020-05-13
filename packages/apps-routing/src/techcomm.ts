@@ -11,6 +11,7 @@ export default function create (t: <T = string> (key: string, text: string, opti
     Component: TechComm,
     display: {
       needsAccounts: true,
+      isHidden: true,
       needsApi: [
         'query.technicalCommittee.members'
       ]
