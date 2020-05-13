@@ -1,7 +1,6 @@
 import axios, {AxiosInstance} from 'axios';
 
- // http://34.90.127.31/
-export const api: AxiosInstance =  axios.create({baseURL: 'http://stakedrop.phala.network'});
+export const api: AxiosInstance =  axios.create({baseURL: 'https://stakedrop.phala.network/api/'});
 
 export interface Response<T> {
   status: "ok" | "error";
@@ -45,3 +44,10 @@ export async function getTotalStaking(era: number): Promise<Response<TotalStakin
   return await request<TotalStakingResult>('total_staking', {era});
 }
 
+export const startDate = new Date('2020-05-15T10:00:00Z');
+
+export function points(ksm: number, days: number) {
+  return ksm * days / 30 * Math.pow(1.01, (days - 30));
+}
+
+export const pointThreshold: number = points(2700000, 90);

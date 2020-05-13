@@ -36,8 +36,8 @@ function StakedropApp ({ className, basePath }: Props): React.ReactElement<Props
   const stakingOverview = useCall<DeriveStakingOverview>(api.derive.staking.overview, []);
   const allStashes = useStashIds();
 
-
-  const [nominators, dispatchNominators] = useReducer(reduceNominators, [] as string[]);
+  // [nominators, dispatchNominators]
+  const dispatchNominators = useReducer(reduceNominators, [] as string[])[1];
 
   useEffect((): void => {
     allStashes && stakingOverview && setValidators({

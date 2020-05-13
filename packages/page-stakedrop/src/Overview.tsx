@@ -42,6 +42,9 @@ function Overview ({next, setNominators, stakingOverview, whitelist}: Props): Re
     if (!sessionInfo || !sessionInfo.activeEra) {
       return;
     }
+    if (new Date() < StakedropApi.startDate) {
+      return;
+    }
     // console.log('era', sessionInfo.activeEra.toNumber(), sessionInfo.currentEra);
     const currentEra = sessionInfo.activeEra.toNumber();
 
@@ -63,7 +66,7 @@ function Overview ({next, setNominators, stakingOverview, whitelist}: Props): Re
           {percentage}
         </CardSummary>
         <CardSummary label={t('stakedrop participate rate')}>
-          {(stakeAmount/2700000*100).toFixed(2)}%
+          {(stakeAmount / StakedropApi.pointThreshold * 100).toFixed(2)}%
         </CardSummary>
         <CardSummary label={t('PHA total reward (est.)')}>
           27,000,000

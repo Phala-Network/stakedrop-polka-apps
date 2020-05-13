@@ -2,9 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import Countdown, {CountdownRenderProps} from 'react-countdown';
 
+import { Container } from 'semantic-ui-react'
 import { SummaryBox, CardSummary } from '@polkadot/react-components';
 
 import { useTranslation } from './../translate';
+import { startDate } from './../api';
 
 const Headline = styled.div`
   padding: 12px 1em 6px 1em;
@@ -15,7 +17,6 @@ const Headline = styled.div`
 
 function _StakedropCountdown () {
   const { t } = useTranslation();
-  const startDate = new Date('2020-05-15T10:00:00Z');
   const now = new Date();
 
   function renderCountdown (props :CountdownRenderProps): React.ReactNode {
@@ -35,9 +36,11 @@ function _StakedropCountdown () {
   return now < startDate ? (
     <section>
       <Headline>{t('KSM x PHA Stakedrop will start in')}:</Headline>
-      <SummaryBox>
-        <Countdown date={startDate} renderer={renderCountdown} />
-      </SummaryBox>
+      <Container>
+        <SummaryBox>
+          <Countdown date={startDate} renderer={renderCountdown} />
+        </SummaryBox>
+      </Container>
     </section>
   ) : null;
 }
