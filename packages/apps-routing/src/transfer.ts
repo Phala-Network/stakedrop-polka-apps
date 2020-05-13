@@ -11,7 +11,7 @@ export default function create (t: <T = string> (key: string, text: string, opti
     Component: Modal,
     Modal,
     display: {
-      isHidden: false,
+      isHidden: true,
       needsAccounts: true,
       needsApi: [
         'tx.balances.transfer'
