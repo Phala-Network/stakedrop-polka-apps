@@ -11,21 +11,23 @@ import CurrentList from './CurrentList';
 
 interface Props extends BareProps {
   hasQueries: boolean;
-  isIntentions?: boolean;
+  showType: 'validators' | 'intentions' | 'both';
   next?: string[];
   setNominators?: (nominators: string[]) => void;
   stakingOverview?: DeriveStakingOverview;
+  whitelist?: string[];
 }
 
-function Overview ({ className = '', hasQueries, isIntentions, next, setNominators, stakingOverview }: Props): React.ReactElement<Props> {
+function Overview ({ className = '', hasQueries, showType, next, setNominators, stakingOverview, whitelist }: Props): React.ReactElement<Props> {
   return (
     <div className={`staking--Overview ${className}`}>
       <CurrentList
         hasQueries={hasQueries}
-        isIntentions={isIntentions}
+        showType={showType}
         next={next}
         setNominators={setNominators}
         stakingOverview={stakingOverview}
+        whitelist={whitelist}
       />
     </div>
   );

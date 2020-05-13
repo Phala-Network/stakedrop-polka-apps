@@ -134,7 +134,7 @@ function StakingApp ({ basePath, className = '' }: Props): React.ReactElement<Pr
           <Overview
             className={`${basePath}/waiting` === pathname ? '' : 'staking--hidden'}
             hasQueries={hasQueries}
-            isIntentions
+            showType='intentions'
             next={next}
             stakingOverview={stakingOverview}
           />
@@ -151,6 +151,7 @@ function StakingApp ({ basePath, className = '' }: Props): React.ReactElement<Pr
       <Overview
         className={basePath === pathname ? '' : 'staking--hidden'}
         hasQueries={hasQueries}
+        showType='validators'
         next={next}
         setNominators={dispatchNominators}
         stakingOverview={stakingOverview}
