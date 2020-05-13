@@ -11,7 +11,7 @@ export default function create (t: (key: string, text: string, options: { ns: st
     Component: TransferModal,
     Modal: TransferModal,
     display: {
-      isHidden: false,
+      isHidden: true,
       needsAccounts: true,
       needsApi: [
         'tx.balances.transfer'

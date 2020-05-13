@@ -10,6 +10,7 @@ export default function create (t: (key: string, text: string, options: { ns: st
   return {
     Component: Parachains,
     display: {
+      isHidden: true,
       needsApi: [
         'query.parachains.code'
       ]
