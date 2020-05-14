@@ -14,6 +14,7 @@ import whitelist from './static/whitelist';
 import { useTranslation } from './translate';
 import Countdown from './components/Countdown';
 import Overview from './Overview';
+import Participate from './Participate';
 
 interface Validators {
   next?: string[];
@@ -83,7 +84,9 @@ function StakedropApp ({ className, basePath }: Props): React.ReactElement<Props
           Calculator will be ready soon.
         </Route>
         <Route path={`${basePath}/stake`}>
-          Stake page will be ready soon.
+          <Participate
+            whitelist={whitelist}
+          />
         </Route>
         <Route path={`${basePath}/nomination`}>
           Nomination page will be ready soon.
