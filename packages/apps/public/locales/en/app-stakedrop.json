@@ -1,5 +1,7 @@
 {
   "Calculator": "Calculator",
+  "KSM network staked": "KSM network staked",
+  "KSM participating": "KSM participating",
   "KSM total staked": "KSM total staked",
   "KSM x PHA Stakedrop will start in": "KSM x PHA Stakedrop will start in",
   "My Nomination": "My Nomination",
@@ -7,5 +9,6 @@
   "PHA total reward (est.)": "PHA total reward (est.)",
   "Participate": "Participate",
   "stakedrop participate rate": "stakedrop participate rate",
+  "stakedrop participate rate (est.)": "stakedrop participate rate (est.)",
   "stakedrop validator whitelist": "stakedrop validator whitelist"
 }
