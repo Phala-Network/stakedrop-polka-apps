@@ -331,6 +331,7 @@
   "nav.js": "javascript",
   "nav.parachains": "平行链",
   "nav.settings": "设置",
+  "nav.stakedrop": "PHA抵押空投",
   "nav.staking": "质押",
   "nav.storage": "链状态",
   "nav.sudo": "撤销",
