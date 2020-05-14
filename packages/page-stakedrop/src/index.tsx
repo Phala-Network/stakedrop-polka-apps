@@ -15,6 +15,7 @@ import { useTranslation } from './translate';
 import Countdown from './components/Countdown';
 import Overview from './Overview';
 import Participate from './Participate';
+import Nomination from './Nomination';
 
 interface Validators {
   next?: string[];
@@ -82,7 +83,7 @@ function StakedropApp ({ className, basePath }: Props): React.ReactElement<Props
           />
         </Route>
         <Route path={`${basePath}/nomination`}>
-          Nomination page will be ready soon.
+          <Nomination/>
         </Route>
         <Route>
           <Overview
