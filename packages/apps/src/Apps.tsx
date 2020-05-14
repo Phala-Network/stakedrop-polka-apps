@@ -19,6 +19,8 @@ import Content from './Content';
 import SideBar from './SideBar';
 import WarmUp from './WarmUp';
 
+import Navbar from './Navbar';
+
 interface SidebarState {
   isCollapsed: boolean;
   isMenu: boolean;
@@ -75,6 +77,7 @@ function Apps ({ className = '' }: Props): React.ReactElement<Props> {
   return (
     <>
       <GlobalStyle uiHighlight={defaultColor || uiHighlight} />
+      <Navbar />
       <div className={`apps--Wrapper ${isCollapsed ? 'collapsed' : 'expanded'} ${isMenu ? 'fixed' : ''} ${isMenuOpen ? 'menu-open' : ''} theme--default ${className}`}>
         <div
           className={`apps--Menu-bg ${isMenuOpen ? 'open' : 'closed'}`}
