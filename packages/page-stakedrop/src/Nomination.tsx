@@ -82,6 +82,9 @@ function Nomination ({} :Props): React.ReactElement<Props> {
           {formatBalance(estPHA90, {withUnit: 'PHA'}, 0)}
         </CardSummary>
       </SummaryBox>
+      <p>
+        {t('Reward stats and charts are coming soon.')}
+      </p>
     </>
   )
 }
