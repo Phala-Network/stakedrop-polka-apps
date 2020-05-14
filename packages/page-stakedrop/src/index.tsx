@@ -14,6 +14,7 @@ import whitelist from './static/whitelist';
 import { useTranslation } from './translate';
 import Countdown from './components/Countdown';
 import Overview from './Overview';
+import Calculator from './Calculator';
 import Participate from './Participate';
 import Nomination from './Nomination';
 
@@ -75,7 +76,7 @@ function StakedropApp ({ className, basePath }: Props): React.ReactElement<Props
       
       <Switch>
         <Route path={`${basePath}/calculator`}>
-          Calculator will be ready soon.
+          <Calculator basePath={basePath} />
         </Route>
         <Route path={`${basePath}/stake`}>
           <Participate
