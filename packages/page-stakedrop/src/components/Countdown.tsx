@@ -9,10 +9,18 @@ import { useTranslation } from './../translate';
 import { startDate } from './../api';
 
 const Headline = styled.div`
+  margin-top: 37px;
   padding: 12px 1em 6px 1em;
-  font-size: 18px;
+  font-size: 36px;
+  height: 90px;
   font-weight: 300;
   text-align: center;
+`;
+
+const SmallerContainer = styled(Container)`
+  @media only screen and (min-width: 1200px) {
+    width: 400px !important;
+  }
 `;
 
 function _StakedropCountdown () {
@@ -36,11 +44,11 @@ function _StakedropCountdown () {
   return now < startDate ? (
     <section>
       <Headline>{t('KSM x PHA Stakedrop will start in')}:</Headline>
-      <Container>
+      <SmallerContainer>
         <SummaryBox>
           <Countdown date={startDate} renderer={renderCountdown} />
         </SummaryBox>
-      </Container>
+      </SmallerContainer>
     </section>
   ) : null;
 }
