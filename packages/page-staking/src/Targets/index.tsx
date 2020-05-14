@@ -27,6 +27,7 @@ interface Props {
   stakingOverview?: DeriveStakingOverview;
   targets: SortedTargets;
   toggleFavorite: (address: string) => void;
+  hideSummary?: boolean;
 }
 
 interface SortState {
@@ -48,7 +49,7 @@ function sort (sortBy: TargetSortBy, sortFromMax: boolean, validators: Validator
     );
 }
 
-function Targets ({ className = '', isInElection, ownStashes, targets: { calcWith, lastReward, nominators, setCalcWith, totalStaked, validators }, toggleFavorite }: Props): React.ReactElement<Props> {
+function Targets ({ className = '', isInElection, hideSummary, ownStashes, targets: { calcWith, lastReward, nominators, setCalcWith, totalStaked, validators }, toggleFavorite }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const ownNominators = useOwnNominators(ownStashes);
   const [selected, setSelected] = useState<string[]>([]);
@@ -170,12 +171,14 @@ function Targets ({ className = '', isInElection, ownStashes, targets: { calcWit
 
   return (
     <div className={className}>
-      <Summary
-        lastReward={lastReward}
-        numNominators={nominators?.length}
-        numValidators={validators?.length}
-        totalStaked={totalStaked}
-      />
+      {!hideSummary &&
+        <Summary
+          lastReward={lastReward}
+          numNominators={nominators?.length}
+          numValidators={validators?.length}
+          totalStaked={totalStaked}
+        />
+      }
       <Button.Group>
         <Button
           icon='check'
