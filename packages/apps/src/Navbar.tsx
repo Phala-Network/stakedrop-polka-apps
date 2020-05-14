@@ -6,7 +6,7 @@ import logo from './images/phala-logo.png';
 
 const Bar = styled.nav`
   height: 60px;
-  background-color: black;
+  background-color: #262b2d;
   color: white;
   padding: 0 20px;
   font-size: 16px;
