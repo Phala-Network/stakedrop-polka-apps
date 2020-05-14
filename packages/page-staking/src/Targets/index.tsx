@@ -28,6 +28,7 @@ interface Props {
   targets: SortedTargets;
   toggleFavorite: (address: string) => void;
   hideSummary?: boolean;
+  preferredValidator?: string[];
 }
 
 interface SortState {
@@ -49,7 +50,9 @@ function sort (sortBy: TargetSortBy, sortFromMax: boolean, validators: Validator
     );
 }
 
-function Targets ({ className = '', isInElection, hideSummary, ownStashes, targets: { calcWith, lastReward, nominators, setCalcWith, totalStaked, validators }, toggleFavorite }: Props): React.ReactElement<Props> {
+function Targets ({ className = '', isInElection, hideSummary, preferredValidator = [], ownStashes, targets, toggleFavorite }: Props): React.ReactElement<Props> {
+  const { calcWith, lastReward, nominators, setCalcWith, totalStaked } = targets;
+  const rawValidators = targets.validators;
   const { t } = useTranslation();
   const ownNominators = useOwnNominators(ownStashes);
   const [selected, setSelected] = useState<string[]>([]);
@@ -59,6 +62,23 @@ function Targets ({ className = '', isInElection, hideSummary, ownStashes, targe
   const [withElected, setWithElected] = useState(false);
   const [withIdentity, setWithIdentity] = useState(false);
   const [{ sortBy, sortFromMax }, setSortBy] = useState<SortState>({ sortBy: 'rankOverall', sortFromMax: true });
+
+  const { validators, nonOverlapAddition } = useMemo(() => {
+    const tweakedValidators: ValidatorInfo[] | undefined = rawValidators?.map((v): ValidatorInfo => {
+      if (preferredValidator.includes(v.key)) {
+        v.isFavorite = true;
+      }
+      return v;
+    });
+    let nonOverlapAddition;
+    if (!tweakedValidators) {
+      nonOverlapAddition = preferredValidator;
+    } else {
+      const keys = tweakedValidators.map(v => v.key);
+      nonOverlapAddition = preferredValidator.filter(v => !keys.includes(v));
+    }
+    return { validators: tweakedValidators, nonOverlapAddition };
+  }, [preferredValidator, rawValidators]);
 
   useEffect((): void => {
     validators && setSorted(
@@ -106,8 +126,10 @@ function Targets ({ className = '', isInElection, hideSummary, ownStashes, targe
         return result;
       }, [])
     ),
-    [validators, withIdentity]
+    [validators, nonOverlapAddition, withIdentity]
   );
+
+  const nominationTarget = useMemo(() => nonOverlapAddition.concat(selected), [selected, nonOverlapAddition]);
 
   const labels = useMemo(
     (): Record<string, string> => ({
@@ -189,7 +211,7 @@ function Targets ({ className = '', isInElection, hideSummary, ownStashes, targe
         <Nominate
           isDisabled={isInElection}
           ownNominators={ownNominators}
-          targets={selected}
+          targets={nominationTarget}
         />
       </Button.Group>
       <ElectionBanner isInElection={isInElection} />
@@ -200,7 +222,7 @@ function Targets ({ className = '', isInElection, hideSummary, ownStashes, targe
       >
         {validators && sorted && (validators.length === sorted.length) && sorted.map((index): React.ReactNode =>
           <Validator
-            canSelect={selected.length < MAX_NOMINATIONS}
+            canSelect={selected.length < MAX_NOMINATIONS - nonOverlapAddition.length}
             filterName={nameFilter}
             info={validators[index]}
             isNominated={myNominees.includes(validators[index].key)}
