@@ -137,8 +137,10 @@ function Calcualtor ({basePath} :Props): React.ReactElement<Props> {
           </div>
         </EstBox>
 
-
       </div>
+      <p>
+        {t('Reward curve chart is coming soon.')}
+      </p>
     </Container>
   );
 }
