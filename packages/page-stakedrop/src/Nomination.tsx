@@ -83,7 +83,11 @@ function Nomination ({} :Props): React.ReactElement<Props> {
         </CardSummary>
       </SummaryBox>
       <p>
-        {t('Reward stats and charts are coming soon.')}
+        <ul>
+          <li>{t('You can find the ongoing stakedrop status and historical data in this page. Reward stats and charts are coming soon.')}</li>
+          <li>{t('You may not see your stake right after nominated the whitelisted validators becuae it takes 2 eras to take effect (6 hours per era in Kusama Network).')}</li>
+          <li>{t('From Polkadot.js: "Once transmitted the new selection will only take effect in 2 eras since the selection criteria for the next era was done at the end of the previous era. Until then, the nominations will show as inactive."')}</li>
+        </ul>
       </p>
     </>
   )
