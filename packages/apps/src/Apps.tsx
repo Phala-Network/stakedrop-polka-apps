@@ -21,6 +21,8 @@ import SideBar from './SideBar';
 import WarmUp from './WarmUp';
 import { WindowDimensionsCtx } from './WindowDimensions';
 
+import Navbar from './Navbar';
+
 interface SidebarState {
   isCollapsed: boolean;
   isMenu: boolean;
@@ -82,6 +84,7 @@ function Apps ({ className = '' }: Props): React.ReactElement<Props> {
   return (
     <>
       <GlobalStyle uiHighlight={defaultColor || uiHighlight} />
+      <Navbar />
       <div className={`apps--Wrapper ${isCollapsed ? 'collapsed' : 'expanded'}${isMenu ? ' fixed' : ''}${isMenuOpen ? ' menu-open' : ''} theme--default ${className}`}>
         <AccountSidebar>
           <div
