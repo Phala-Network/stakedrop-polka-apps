@@ -5,7 +5,7 @@
 import React from 'react';
 import { Badge, Icon } from '@polkadot/react-components';
 
-import MaxBadge from '../../MaxBadge';
+// import MaxBadge from '../../MaxBadge';
 
 interface Props {
   isElected: boolean;
@@ -31,7 +31,7 @@ function Status ({ isElected, numNominators, onlineCount, onlineMessage }: Props
           type='online'
         />
       )}
-      <MaxBadge numNominators={numNominators} />
+      {/* <MaxBadge numNominators={numNominators} /> */}
     </td>
   );
 }

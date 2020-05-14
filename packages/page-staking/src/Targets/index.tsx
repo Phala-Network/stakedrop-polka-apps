@@ -21,6 +21,7 @@ interface Props {
   ownStashes?: StakerState[];
   targets: SortedTargets;
   hideSummary?: boolean;
+  preferredValidator?: string[];
 }
 
 function sort (sortBy: TargetSortBy, sortFromMax: boolean, validators: ValidatorInfo[]): number[] {
@@ -37,12 +38,31 @@ function sort (sortBy: TargetSortBy, sortFromMax: boolean, validators: Validator
     );
 }
 
-function Targets ({ className, hideSummary, ownStashes, targets: { calcWith, lastReward, nominators, setCalcWith, toggleFavorite, totalStaked, validators } }: Props): React.ReactElement<Props> {
+function Targets ({ className, hideSummary, preferredValidator = [], ownStashes, targets }: Props): React.ReactElement<Props> {
+  const { calcWith, lastReward, nominators, setCalcWith, toggleFavorite, totalStaked } = targets;
+  const rawValidators = targets.validators;
   const { t } = useTranslation();
   const ownNominators = useOwnNominators(ownStashes);
   const [selected, setSelected] = useState<string[]>([]);
   const [sorted, setSorted] = useState<number[] | undefined>();
   const [{ sortBy, sortFromMax }, setSortBy] = useState<{ sortBy: TargetSortBy; sortFromMax: boolean }>({ sortBy: 'rankOverall', sortFromMax: true });
+
+  const { validators, nonOverlapAddition } = useMemo(() => {
+    const tweakedValidators: ValidatorInfo[] | undefined = rawValidators?.map((v): ValidatorInfo => {
+      if (preferredValidator.includes(v.key)) {
+        v.isFavorite = true;
+      }
+      return v;
+    });
+    let nonOverlapAddition;
+    if (!tweakedValidators) {
+      nonOverlapAddition = preferredValidator;
+    } else {
+      const keys = tweakedValidators.map(v => v.key);
+      nonOverlapAddition = preferredValidator.filter(v => !keys.includes(v));
+    }
+    return { validators: tweakedValidators, nonOverlapAddition };
+  }, [preferredValidator, rawValidators]);
 
   useEffect((): void => {
     validators && setSorted(
@@ -72,11 +92,13 @@ function Targets ({ className, hideSummary, ownStashes, targets: { calcWith, las
   const _selectProfitable = useCallback(
     () => setSelected(
       (validators || [])
-        .filter((_, index) => index < MAX_NOMINATIONS)
+        .filter((_, index) => index < MAX_NOMINATIONS - nonOverlapAddition.length)
         .map(({ key }) => key)
     ),
-    [validators]
+    [validators, nonOverlapAddition]
   );
+
+  const nominationTarget = useMemo(() => nonOverlapAddition.concat(selected), [selected, nonOverlapAddition]);
 
   const labels = useMemo(
     (): Record<string, string> => ({
@@ -132,7 +154,7 @@ function Targets ({ className, hideSummary, ownStashes, targets: { calcWith, las
         />
         <Nominate
           ownNominators={ownNominators}
-          targets={selected}
+          targets={nominationTarget}
         />
       </Button.Group>
       <Table
@@ -142,7 +164,7 @@ function Targets ({ className, hideSummary, ownStashes, targets: { calcWith, las
       >
         {validators && sorted && (validators.length === sorted.length) && sorted.map((index): React.ReactNode =>
           <Validator
-            canSelect={selected.length < MAX_NOMINATIONS}
+            canSelect={selected.length < MAX_NOMINATIONS - nonOverlapAddition.length}
             info={validators[index]}
             isSelected={selected.includes(validators[index].key)}
             key={validators[index].key}
