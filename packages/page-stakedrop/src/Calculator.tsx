@@ -34,6 +34,27 @@ const EstBox = styled.div`
   }
 `;
 
+interface CheckParseOptinos {
+  min?: number;
+  max?: number;
+  def: number;
+}
+
+function checkParse(v: string, {min, max, def}: CheckParseOptinos): [number, string | undefined] {
+  const x = parseFloat(v);
+  if (isNaN(x)) {
+    return [def, 'Invalid number'];
+  }
+  if (min !== undefined && x < min) {
+    return [def, `Too low (<${min})`];
+  }
+  if (max !== undefined && x > max) {
+    return [def, `Too high (>${max})`];
+  }
+  return [x, undefined];
+}
+
+
 function Calcualtor ({basePath} :Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const { api } = useApi();
@@ -42,13 +63,12 @@ function Calcualtor ({basePath} :Props): React.ReactElement<Props> {
     transform: (activeEra: Option<ActiveEraInfo>) => activeEra.unwrapOr({ index: undefined }).index
   });
 
-  const [amount, setAmount] = useState(1000);
-  const [length, _setLength] = useState(90);
-  function setLength(v: number) {
-    if (v > 90) v = 90;
-    if (v < 30) v = 30;
-    _setLength(v);
-  }
+  const [inputAmount, setInputAmount] = useState('1000');
+  const [inputLength, setInputLength] = useState('90');
+
+  const [amount, amountErr] = checkParse(inputAmount, {min:10, def:0});
+  const [length, lengthErr] = checkParse(inputLength, {min:30, max:90, def:0});
+  
   const [eventAmount, setEventAmount] = useState(0);
   useEffect(()=> {
     if (!hasAccounts || !activeEra) {
@@ -91,12 +111,13 @@ function Calcualtor ({basePath} :Props): React.ReactElement<Props> {
             // autoFocus
             // help={t('How many KSM do you want to stake to the whitelisted validators?')}
             error={!amount}
-            value={amount}
+            value={inputAmount}
             // ref={input => this.inputtext = amount.toString()} 
             label={{content: t('KSM Amount'), color: 'teal'}}
-            onChange={(_, {value}) => setAmount(parseFloat(value))}
+            onChange={(_, {value}) => setInputAmount(value)}
           />
-          {amount < 10 && (<span>{t('Warning: need at least 10 KSM to get stakedrop')}</span>)}
+          {amountErr && (<div>{amountErr}</div>)}
+          {amountErr?.startsWith('Too low') && (<div>{t('Warning: need at least 10 KSM to get stakedrop')}</div>)}
 
         </div>
         <div className="small"></div>
@@ -104,12 +125,13 @@ function Calcualtor ({basePath} :Props): React.ReactElement<Props> {
           <p>{t('Time to stake')}</p>
           <Input
             // help={t('How long do you want to stake KSM for PHA stakedrop reward?')}
-            value={length}
+            value={inputLength}
             // ref={input => this.inputtext = length.toString()} 
             error={!length}
             label={{content: t('Days to stake'), color: 'teal'}}
-            onChange={(_, {value}) => setLength(parseFloat(value))}
+            onChange={(_, {value}) => setInputLength(value)}
           />
+          {lengthErr && (<div>{lengthErr}</div>)}
 
         </div>
       </div>
