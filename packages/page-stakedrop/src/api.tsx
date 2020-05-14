@@ -44,6 +44,15 @@ export async function getTotalStaking(era: number): Promise<Response<TotalStakin
   return await request<TotalStakingResult>('total_staking', {era});
 }
 
+interface Points {
+  total_point: number;
+  total_point_est: number;
+}
+export type PointsResult = Points[];
+export async function getPoints(era: number): Promise<Response<PointsResult>> {
+  return await request<PointsResult>('stakedrop_point', {era});
+}
+
 export const startDate = new Date('2020-05-15T10:00:00Z');
 
 export function points(ksm: number, days: number) {
