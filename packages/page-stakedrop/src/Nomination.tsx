@@ -55,8 +55,8 @@ function Nomination ({} :Props): React.ReactElement<Props> {
     const norm90 = StakedropAPI.points(particpated, 90);
     return [
       norm90 / minDeorm * 27000000,
-      norm30 / estDenorm * 27000000,
-      norm90 / estDenorm * 27000000,
+      estDenorm > 0 ? norm30 / estDenorm * 27000000 : 0,
+      estDenorm > 0 ? norm90 / estDenorm * 27000000 : 0,
     ];
   }, [particpated, eventAmount]);
   
