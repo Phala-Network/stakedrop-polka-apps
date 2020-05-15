@@ -6,7 +6,7 @@ import { Container } from 'semantic-ui-react'
 import { SummaryBox, CardSummary } from '@polkadot/react-components';
 
 import { useTranslation } from './../translate';
-import { startDate } from './../api';
+import { startDate, endDate } from './../api';
 
 const Headline = styled.div`
   margin-top: 37px;
@@ -41,16 +41,20 @@ function _StakedropCountdown () {
     );
   }
 
-  return now < startDate ? (
+  return (
     <section>
-      <Headline>{t('KSM x PHA Stakedrop will start in')}:</Headline>
+      <Headline>{
+        now < startDate
+        ? t('KSM x PHA Stakedrop will start in')
+        : t('KSM x PHA Stakedrop will end in')
+      }:</Headline>
       <SmallerContainer>
         <SummaryBox>
-          <Countdown date={startDate} renderer={renderCountdown} />
+          <Countdown date={now < startDate ? startDate : endDate} renderer={renderCountdown} />
         </SummaryBox>
       </SmallerContainer>
     </section>
-  ) : null;
+  );
 }
 
 const StakedropCountdown = _StakedropCountdown;
