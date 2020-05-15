@@ -64,6 +64,7 @@ export async function getStakingInfo(era:number, nominator?: string): Promise<Re
 }
 
 export const startDate = new Date('2020-05-15T10:00:00Z');
+export const endDate = new Date('2020-06-14T10:00:00Z');
 
 export function points(ksm: number, days: number) {
   return ksm * days / 30 * Math.pow(1.01, (days - 30));
