@@ -41,7 +41,8 @@ interface CheckParseOptinos {
 }
 
 function checkParse(v: string, {min, max, def}: CheckParseOptinos): [number, string | undefined] {
-  const x = parseFloat(v);
+  let x;
+  try { x = parseFloat(v) } catch { return [def, 'Invalid number']; }
   if (isNaN(x)) {
     return [def, 'Invalid number'];
   }
@@ -66,7 +67,7 @@ function Calcualtor ({basePath} :Props): React.ReactElement<Props> {
   const [inputAmount, setInputAmount] = useState('1000');
   const [inputLength, setInputLength] = useState('90');
 
-  const [amount, amountErr] = checkParse(inputAmount, {min:10, def:0});
+  const [amount, amountErr] = checkParse(inputAmount, {min:10, max:1e10, def:0});
   const [length, lengthErr] = checkParse(inputLength, {min:30, max:90, def:0});
   
   const [eventAmount, setEventAmount] = useState(0);
