@@ -49,6 +49,9 @@ function Nomination ({} :Props): React.ReactElement<Props> {
   const [eventAmount, setEventAmount] = useState(0);
 
   const [minPHA, estPHA30, estPHA90] = useMemo((): number[] => {
+    if (particpated < 10) {
+      return [0, 0, 0];
+    }
     const minDeorm = StakedropAPI.pointThreshold;
     const estDenorm = Math.min(StakedropAPI.points(eventAmount, 90), StakedropAPI.pointThreshold);
     const norm30 = StakedropAPI.points(particpated, 30);
@@ -67,7 +70,7 @@ function Nomination ({} :Props): React.ReactElement<Props> {
     <>
       <SummaryBox>
         <CardSummary label={t('My stashes')}>
-          {formatBalance(particpated, undefined, 0)}
+          {formatBalance(particpated < 10 ? 0 : particpated, undefined, 0)}
         </CardSummary>
         <CardSummary label={t('Particpated period')}>
           {0} days
@@ -82,13 +85,12 @@ function Nomination ({} :Props): React.ReactElement<Props> {
           {formatBalance(estPHA90, {withUnit: 'PHA'}, 0)}
         </CardSummary>
       </SummaryBox>
-      <p>
-        <ul>
-          <li>{t('You can find the ongoing stakedrop status and historical data in this page. Reward stats and charts are coming soon.')}</li>
-          <li>{t('You may not see your stake right after nominated the whitelisted validators becuae it takes 2 eras to take effect (6 hours per era in Kusama Network).')}</li>
-          <li>{t('From Polkadot.js: "Once transmitted the new selection will only take effect in 2 eras since the selection criteria for the next era was done at the end of the previous era. Until then, the nominations will show as inactive."')}</li>
-        </ul>
-      </p>
+      {particpated > 0 && particpated < 10 && (<p>{t('Warning: you have staked {{val}} KSM, less than the minimal requirement of 10 KSM.', {replace: {val: particpated}})}</p>)}
+      <ul>
+        <li>{t('You can find the ongoing stakedrop status and historical data in this page. Reward stats and charts are coming soon.')}</li>
+        <li>{t('You may not see your stake right after nominated the whitelisted validators becuae it takes 2 eras to take effect (6 hours per era in Kusama Network).')}</li>
+        <li>{t('From Polkadot.js: "Once transmitted the new selection will only take effect in 2 eras since the selection criteria for the next era was done at the end of the previous era. Until then, the nominations will show as inactive."')}</li>
+      </ul>
     </>
   )
 }
