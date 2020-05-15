@@ -10,21 +10,22 @@ import { Route, Switch } from 'react-router';
 
 import React, { useState, useEffect, useMemo, useReducer } from 'react';
 
-import whitelist from './static/whitelist';
+import hardcodedWhitelist from './static/whitelist';
 import { useTranslation } from './translate';
 import Countdown from './components/Countdown';
 import Overview from './Overview';
 import Calculator from './Calculator';
 import Participate from './Participate';
 import Nomination from './Nomination';
+import * as StakedropApi from './api';
 
 interface Validators {
   next?: string[];
   validators?: string[];
 }
 
-function loadWhitelist(): string[] {
-  return whitelist.result.map((r: {stash: string}) => r.stash);
+function loadWhitelist(input = hardcodedWhitelist): string[] {
+  return input.result.map((r: {stash: string}) => r.stash);
 }
 
 function reduceNominators (nominators: string[], additional: string[]): string[] {
@@ -49,7 +50,17 @@ function StakedropApp ({ className, basePath }: Props): React.ReactElement<Props
     });
   }, [allStashes, stakingOverview]);
 
-  const whitelist = useMemo(loadWhitelist, []);
+  const staticWhitelist = useMemo(loadWhitelist, []);
+  const [whitelist, setWhitelist] = useState(staticWhitelist);
+  useEffect(() => {
+    (async () => {
+      const r = await StakedropApi.getWhitelist();
+      if (r.status == 'ok') {
+        setWhitelist(loadWhitelist(r));
+      }
+    })();
+  }, []);
+
 
   const tabItems = [
     {
