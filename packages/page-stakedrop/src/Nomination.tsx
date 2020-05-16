@@ -92,18 +92,17 @@ function Nomination ({} :Props): React.ReactElement<Props> {
   }, [particpated, eventAmount]);
 
   const participatedPeriod = useMemo((): number => {
-    return stashes
+    const days= stashes
       .map(({stash}) =>
-        stash.filter(s =>
-          s.era >= StakedropAPI.startEra && s.amount >= 10
-        ).length / 4)
-      .reduce(Math.max as (a: number, b: number)=>number, 0);
+        stash.filter(s => s.era >= StakedropAPI.startEra && s.amount >= 10).length / 4)
+      .map(v => {console.log(v); return v});
+    return Math.max(0, ...days);
   }, [stashes]);
 
   const stashCharts = useMemo((): JSX.Element[] => {
     const eraNames: string[] = [];
-    const daysToShow = 30;
-    for (let i = 0; i < daysToShow; i++) {
+    const erasToShow = 7 * 4;
+    for (let i = 0; i < erasToShow; i++) {
       const day = 1 + ((i/4)|0);
       const era = 1 + i % 4;
       eraNames.push(`${day}-${era}`);
