@@ -101,7 +101,7 @@ function Nomination ({} :Props): React.ReactElement<Props> {
 
   const stashCharts = useMemo((): JSX.Element[] => {
     const eraNames: string[] = [];
-    const erasToShow = 7 * 4;
+    const erasToShow = StakedropAPI.daysSinceStart * 4;
     for (let i = 0; i < erasToShow; i++) {
       const day = 1 + ((i/4)|0);
       const era = 1 + i % 4;
