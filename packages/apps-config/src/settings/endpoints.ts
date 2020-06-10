@@ -21,18 +21,6 @@ function createDev (t: <T= string> (key: string, text: string, options: { ns: st
 function createLive (t: <T= string> (key: string, text: string, options: { ns: string }) => T): LinkOption[] {
   return [
     {
-      dnslink: 'polkadot',
-      info: 'polkadot',
-      text: t<string>('rpc.polkadot.parity', 'Polkadot (Live, hosted by Parity)', { ns: 'apps-config' }),
-      value: 'wss://rpc.polkadot.io'
-    },
-    {
-      dnslink: 'polkadot',
-      info: 'polkadot',
-      text: t<string>('rpc.polkadot.w3f', 'Polkadot (Live, hosted by Web3 Foundation)', { ns: 'apps-config' }),
-      value: 'wss://cc1-1.polkadot.network'
-    },
-    {
       dnslink: 'kusama',
       info: 'kusama',
       text: t<string>('rpc.kusama.parity', 'Kusama (Polkadot Canary, hosted by Parity)', { ns: 'apps-config' }),
@@ -49,6 +37,18 @@ function createLive (t: <T= string> (key: string, text: string, options: { ns: s
       info: 'kusama',
       text: t<string>('rpc.kusama.ava', 'Kusama (Polkadot Canary, user-run public nodes; see https://status.cloud.ava.do/)', { ns: 'apps-config' }),
       value: 'wss://kusama.polkadot.cloud.ava.do/'
+    },
+    {
+      dnslink: 'polkadot',
+      info: 'polkadot',
+      text: t<string>('rpc.polkadot.parity', 'Polkadot (Live, hosted by Parity)', { ns: 'apps-config' }),
+      value: 'wss://rpc.polkadot.io'
+    },
+    {
+      dnslink: 'polkadot',
+      info: 'polkadot',
+      text: t<string>('rpc.polkadot.w3f', 'Polkadot (Live, hosted by Web3 Foundation)', { ns: 'apps-config' }),
+      value: 'wss://cc1-1.polkadot.network'
     },
     {
       dnslink: 'edgeware',
