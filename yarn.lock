@@ -3154,8 +3154,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@polkadot/app-stakedrop@workspace:packages/page-stakedrop"
   dependencies:
-    "@babel/runtime": ^7.9.6
-    "@polkadot/react-components": 0.42.0-beta.116
+    "@babel/runtime": ^7.10.2
+    "@polkadot/react-components": 0.44.0-beta.67
     axios: ^0.19.2
     echarts: ^4.7.0
     echarts-for-react: ^2.0.15-beta.1
