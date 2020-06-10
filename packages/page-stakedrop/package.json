@@ -1,7 +1,7 @@
 {
   "name": "@polkadot/app-stakedrop",
   "private": true,
-  "version": "0.42.0-beta.116",
+  "version": "0.44.0-beta.67",
   "description": "Phala x Kusama Stakedrop Web UI",
   "main": "index.js",
   "scripts": {},
@@ -11,8 +11,8 @@
   ],
   "license": "Apache-2.0",
   "dependencies": {
-    "@babel/runtime": "^7.9.6",
-    "@polkadot/react-components": "0.42.0-beta.116",
+    "@babel/runtime": "^7.10.2",
+    "@polkadot/react-components": "0.44.0-beta.67",
     "axios": "^0.19.2",
     "echarts": "^4.7.0",
     "echarts-for-react": "^2.0.15-beta.1",
