@@ -30,18 +30,6 @@ function createDev (t: TFunction): LinkOption[] {
 function createLive (t: TFunction): LinkOption[] {
   return [
     {
-      dnslink: 'polkadot',
-      info: 'polkadot',
-      text: t<string>('rpc.polkadot.parity', 'Polkadot (Live, hosted by Parity)', { ns: 'apps-config' }),
-      value: 'wss://rpc.polkadot.io'
-    },
-    {
-      dnslink: 'polkadot',
-      info: 'polkadot',
-      text: t<string>('rpc.polkadot.w3f', 'Polkadot (Live, hosted by Web3 Foundation)', { ns: 'apps-config' }),
-      value: 'wss://cc1-1.polkadot.network'
-    },
-    {
       dnslink: 'kusama',
       info: 'kusama',
       text: t<string>('rpc.kusama.parity', 'Kusama (Polkadot Canary, hosted by Parity)', { ns: 'apps-config' }),
