@@ -30,5 +30,7 @@
   "Warning: you have staked {{val}} KSM, less than the minimal requirement of 10 KSM.": "Warning: you have staked {{val}} KSM, less than the minimal requirement of 10 KSM.",
   "You can find the ongoing stakedrop status and historical data in this page. Reward stats and charts are coming soon.": "You can find the ongoing stakedrop status and historical data in this page. Reward stats and charts are coming soon.",
   "You may not see your stake right after nominated the whitelisted validators becuae it takes 2 eras to take effect (6 hours per era in Kusama Network).": "You may not see your stake right after nominated the whitelisted validators becuae it takes 2 eras to take effect (6 hours per era in Kusama Network).",
-  "stakedrop participate rate (est.)": "stakedrop participate rate (est.)"
+  "stakedrop participate rate (est.)": "stakedrop participate rate (est.)",
+  "Your Ethereum addess": "Your Ethereum addess",
+  "Submit Now": "Submit Now"
 }
