@@ -12,7 +12,7 @@ function checkParse(v: string): boolean {
   return (/^(0x){1}[0-9a-fA-F]{40}$/i.test(v)); //TODO:checksum
 }
 
-function toHexString(v: String): String {
+function toHexString(v: string): string {
   const buf = Buffer.from('--phala--' + v + '-phala-');
   return '0x' + buf.toString('hex');
 }
