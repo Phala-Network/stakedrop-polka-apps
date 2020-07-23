@@ -17,6 +17,7 @@ import Overview from './Overview';
 import Calculator from './Calculator';
 import Participate from './Participate';
 import Nomination from './Nomination';
+import SetEthAddress from './SetEthAddress';
 import * as StakedropApi from './api';
 
 interface Validators {
@@ -80,6 +81,10 @@ function StakedropApp ({ className, basePath }: Props): React.ReactElement<Props
       name: 'nomination',
       text: t('My Nomination')
     },
+    {
+      name: 'setethaddress',
+      text: t('Set Ethereum Address')
+    },
   ];
 
   return (
@@ -103,6 +108,9 @@ function StakedropApp ({ className, basePath }: Props): React.ReactElement<Props
         </Route>
         <Route path={`${basePath}/nomination`}>
           <Nomination/>
+        </Route>
+        <Route path={`${basePath}/setethaddress`}>
+          <SetEthAddress/>
         </Route>
         <Route>
           <Overview
