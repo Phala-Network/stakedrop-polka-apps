@@ -52,15 +52,16 @@ function Nomination ({} :Props): React.ReactElement<Props> {
       }
       const myStake = stakingInfo.result.filter(({nominator}) => allAccounts.includes(nominator));
       const totalStaked = myStake.reduce((sum, stake) => sum + stake.amount, 0) / 1000;
-      setParticpated(totalStaked)
+      setNowParticipated(totalStaked)
 
-      const stashes = myStake.map(({nominator}) => nominator);
-      const allStashes = await Promise.all(stashes.map(async (nominator) => {
+      const stashes = allAccounts;
+      let allStashes = await Promise.all(stashes.map(async (nominator) => {
         return {
           nominator, 
           stash: (await StakedropAPI.getStakeAmount(nominator)).result,
         };
-      }));
+      }))
+      allStashes = allStashes.filter(({stash}) => stash.length > 0);
       setStashes(allStashes);
     })();
 
@@ -73,23 +74,37 @@ function Nomination ({} :Props): React.ReactElement<Props> {
     })();
   }, [allAccounts, activeEra])
 
-  const [particpated, setParticpated] = useState(0);
+  const [nowParticipated, setNowParticipated] = useState(0);
   const [eventAmount, setEventAmount] = useState(0);
 
+  const participated = useMemo((): number => {
+    if (stashes.length == 0) {
+      return nowParticipated;
+    }
+    const stashesMax = stashes
+      .map(({stash}) => {
+        const amounts = stash
+          .filter(s => s.era >= StakedropAPI.startEra && s.amount >= 10)
+          .map(s => s.amount / 1000);
+        return amounts.reduce((x, a) => x + a, 0) / amounts.length;
+      });
+    return stashesMax.reduce((x, a) => x + a, 0);
+  }, [nowParticipated, stashes]);
+
   const [minPHA, estPHA30, estPHA90] = useMemo((): number[] => {
-    if (particpated < 10) {
+    if (participated < 10) {
       return [0, 0, 0];
     }
     const minDeorm = StakedropAPI.pointThreshold;
     const estDenorm = Math.min(StakedropAPI.points(eventAmount, 90), StakedropAPI.pointThreshold);
-    const norm30 = StakedropAPI.points(particpated, 30);
-    const norm90 = StakedropAPI.points(particpated, 90);
+    const norm30 = StakedropAPI.points(participated, 30);
+    const norm90 = StakedropAPI.points(participated, 90);
     return [
       norm90 / minDeorm * 27000000,
       estDenorm > 0 ? norm30 / estDenorm * 27000000 : 0,
       estDenorm > 0 ? norm90 / estDenorm * 27000000 : 0,
     ];
-  }, [particpated, eventAmount]);
+  }, [participated, eventAmount]);
 
   const participatedPeriod = useMemo((): number => {
     const days= stashes
@@ -151,9 +166,9 @@ function Nomination ({} :Props): React.ReactElement<Props> {
     <>
       <SummaryBox>
         <CardSummary label={t('My stashes')}>
-          {formatBalance(particpated < 10 ? 0 : particpated, undefined, 0)}
+          {formatBalance(participated < 10 ? 0 : participated, undefined, 0)}
         </CardSummary>
-        <CardSummary label={t('Particpated period')}>
+        <CardSummary label={t('participated period')}>
           {participatedPeriod} days
         </CardSummary>
         <CardSummary label={t('Minimal PHA (90d)')}>
@@ -173,7 +188,7 @@ function Nomination ({} :Props): React.ReactElement<Props> {
           </Grid>
         </Container>
       </section>
-      {particpated > 0 && particpated < 10 && (<p>{t('Warning: you have staked {{val}} KSM, less than the minimal requirement of 10 KSM.', {replace: {val: particpated}})}</p>)}
+      {participated > 0 && participated < 10 && (<p>{t('Warning: you have staked {{val}} KSM, less than the minimal requirement of 10 KSM.', {replace: {val: participated}})}</p>)}
       <ul>
         <li>{t('You can find the ongoing stakedrop status and historical data in this page. Reward stats and charts are coming soon.')}</li>
         <li>{t('You may not see your stake right after nominated the whitelisted validators becuae it takes 2 eras to take effect (6 hours per era in Kusama Network).')}</li>
