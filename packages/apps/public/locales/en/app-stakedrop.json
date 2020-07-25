@@ -1,4 +1,6 @@
 {
+  "An Ethereum Dapp for reward claiming will be prepared shortly.": "An Ethereum Dapp for reward claiming will be prepared shortly.",
+  "By clicking \"Submit\", the address will be recorded in the Kusama blockchain by a \"system.remark\" extrinsic.": "By clicking \"Submit\", the address will be recorded in the Kusama blockchain by a \"system.remark\" extrinsic.",
   "Calculator": "Calculator",
   "Days to stake": "Days to stake",
   "Estimated rewards": "Estimated rewards",
@@ -23,14 +25,20 @@
   "Participate": "Participate",
   "Particpated period": "Particpated period",
   "Reward curve chart is coming soon.": "Reward curve chart is coming soon.",
+  "Set Ethereum Address": "Set Ethereum Address",
   "Stash": "Stash",
+  "Submit": "Submit",
+  "Submit Now": "Submit Now",
+  "The Ethereum address is used for you to claim the PHA stakedrop reward once the event ends.": "The Ethereum address is used for you to claim the PHA stakedrop reward once the event ends.",
   "The amount of KSM to participate Stakedrop": "The amount of KSM to participate Stakedrop",
   "Time to stake": "Time to stake",
   "Warning: need at least 10 KSM to get stakedrop": "Warning: need at least 10 KSM to get stakedrop",
   "Warning: you have staked {{val}} KSM, less than the minimal requirement of 10 KSM.": "Warning: you have staked {{val}} KSM, less than the minimal requirement of 10 KSM.",
   "You can find the ongoing stakedrop status and historical data in this page. Reward stats and charts are coming soon.": "You can find the ongoing stakedrop status and historical data in this page. Reward stats and charts are coming soon.",
+  "You can submit the address more than once, but only the last one will be used.": "You can submit the address more than once, but only the last one will be used.",
   "You may not see your stake right after nominated the whitelisted validators becuae it takes 2 eras to take effect (6 hours per era in Kusama Network).": "You may not see your stake right after nominated the whitelisted validators becuae it takes 2 eras to take effect (6 hours per era in Kusama Network).",
-  "stakedrop participate rate (est.)": "stakedrop participate rate (est.)",
   "Your Ethereum addess": "Your Ethereum addess",
-  "Submit Now": "Submit Now"
+  "participated period": "participated period",
+  "stakedrop participate rate (est.)": "stakedrop participate rate (est.)",
+  "using the selected account": "using the selected account"
 }

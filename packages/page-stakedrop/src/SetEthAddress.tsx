@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { InputAddress, TxButton } from '@polkadot/react-components';
+import { InputAddress, TxButton, Button } from '@polkadot/react-components';
 import { useTranslation } from './translate';
 import { Input } from 'semantic-ui-react'
 
@@ -26,30 +26,46 @@ function SetEthAddress({}: Props): React.ReactElement<Props> {
   return (
     <>
       <section>
-        <br/>
-        <InputAddress
-          label={t<string>('using the selected account')}
-          onChange={setAccountId}
-          type='account'
-          value={accountId}
-        />
-        
-        <Input 
-          value={ethAddress}
-          error={!checked}
-          label={{content: t<string>('Your Ethereum addess'), color: 'teal'}}
-          onChange={(_, {value}) => setEthAddress(value)}
-        />
-        <br/>
-        <TxButton
-          accountId={accountId}
-          icon='sign-in'
-          isDisabled={!checked}
-          isPrimary
-          label={t<string>('Submit Now')}
-          params={[toHexString(ethAddress)]}
-          tx='system.remark'
-        />
+        <div className='ui--row'>
+          <InputAddress
+            label={t<string>('using the selected account')}
+            onChange={setAccountId}
+            type='account'
+            value={accountId}
+          />
+        </div>
+        <div className='ui--row'>
+          <Input 
+            value={ethAddress}
+            error={!checked}
+            label={{content: t<string>('Your Ethereum addess'), color: 'teal'}}
+            onChange={(_, {value}) => setEthAddress(value)}
+          />
+        </div>
+        <div className='ui--row'>
+          <Button.Group>
+            <TxButton
+              accountId={accountId}
+              icon='sign-in-alt'
+              isDisabled={!checked}
+              isPrimary
+              label={t<string>('Submit')}
+              params={[toHexString(ethAddress)]}
+              tx='system.remark'
+            />
+          </Button.Group>
+        </div>
+
+        <div>
+          <p>
+            <ul>
+              <li>{t('The Ethereum address is used for you to claim the PHA stakedrop reward once the event ends.')}</li>
+              <li>{t('An Ethereum Dapp for reward claiming will be prepared shortly.')}</li>
+              <li>{t('By clicking "Submit", the address will be recorded in the Kusama blockchain by a "system.remark" extrinsic.')}</li>
+              <li>{t('You can submit the address more than once, but only the last one will be used.')}</li>
+            </ul>
+          </p>
+        </div>
       </section>
     </>
   )
