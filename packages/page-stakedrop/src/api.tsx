@@ -82,3 +82,11 @@ export function points(ksm: number, days: number) {
 }
 
 export const pointThreshold: number = points(2700000, 90);
+
+interface EthAddress {
+  eth_address: string;
+}
+export type EthAddressResult = EthAddress[];
+export async function getEthAddress(account: string): Promise<Response<EthAddressResult>> {
+  return await request<EthAddressResult>('eth_address', {account});
+}

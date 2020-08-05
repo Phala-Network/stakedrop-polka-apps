@@ -3,10 +3,28 @@ import React, { useState } from 'react';
 import { InputAddress, TxButton, Button } from '@polkadot/react-components';
 import { useTranslation } from './translate';
 import { Input } from 'semantic-ui-react'
+import styled from 'styled-components';
+
+import * as StakedropApi from './api';
 
 interface Props {
   
 }
+
+const FoundTip = styled('p')`
+  margin-left: 50px;
+  padding-bottom: 25px;
+  font-size: 14px;
+  color: #888;
+
+  span.eth-addr {
+    font-family: monospace;
+  }
+`;
+
+const LeftPaddedDiv = styled('div')`
+  padding-left: 30px;
+`;
 
 function checkParse(v: string): boolean {
   return (/^(0x){1}[0-9a-fA-F]{40}$/i.test(v)); //TODO:checksum
@@ -21,7 +39,29 @@ function SetEthAddress({}: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const [accountId, setAccountId] = useState<string | null>(null);
   const [ethAddress, setEthAddress] = useState('');
+  const [recordedEthAddress, setRecordedEthAddress] = useState('');
   const checked = checkParse(ethAddress);
+
+  function _setAccountId (v: string | null) {
+    if (v != accountId) {
+      if (v) {
+        updateRecordedEthAddress(v)
+      } else {
+        setRecordedEthAddress('');
+      }
+      setAccountId(v);
+    }
+  }
+
+  async function updateRecordedEthAddress (v: string) {
+    const r = await StakedropApi.getEthAddress(v);
+    if (r.status != 'ok' || r.result.length != 1) {
+      setRecordedEthAddress('');
+      return;
+    }
+    const [addr] = r.result;
+    setRecordedEthAddress(addr.eth_address);
+  }
 
   return (
     <>
@@ -29,19 +69,26 @@ function SetEthAddress({}: Props): React.ReactElement<Props> {
         <div className='ui--row'>
           <InputAddress
             label={t<string>('using the selected account')}
-            onChange={setAccountId}
+            onChange={_setAccountId}
             type='account'
             value={accountId}
           />
         </div>
-        <div className='ui--row'>
+        {recordedEthAddress && (
+          <div className='ui--row'>
+            <FoundTip>
+              {t<string>('Linked ETH Address:')} <span className='eth-addr'>{recordedEthAddress}</span>
+            </FoundTip>
+          </div>
+        )}
+        <LeftPaddedDiv className='ui--row'>
           <Input 
             value={ethAddress}
             error={!checked}
             label={{content: t<string>('Your Ethereum addess'), color: 'teal'}}
             onChange={(_, {value}) => setEthAddress(value)}
           />
-        </div>
+        </LeftPaddedDiv>
         <div className='ui--row'>
           <Button.Group>
             <TxButton
