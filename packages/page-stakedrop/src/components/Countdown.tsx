@@ -16,6 +16,10 @@ const Headline = styled.div`
   font-weight: 300;
   text-align: center;
 `;
+const Subtitle = styled.div`
+  font-size: 12px;
+  text-align: center;
+`;
 
 const SmallerContainer = styled(Container)`
   @media only screen and (min-width: 1200px) {
@@ -44,15 +48,20 @@ function _StakedropCountdown () {
   return (
     <section>
       <Headline>{
-        now < startDate
-        ? t('KSM x PHA Stakedrop will start in')
-        : t('KSM x PHA Stakedrop will end in')
+        now < startDate ? t('KSM x PHA Stakedrop will start in')
+        : now < endDate ? t('KSM x PHA Stakedrop will end in')
+        : t('KSM x PHA Stakedrop has ended')
       }:</Headline>
       <SmallerContainer>
         <SummaryBox>
           <Countdown date={now < startDate ? startDate : endDate} renderer={renderCountdown} />
         </SummaryBox>
       </SmallerContainer>
+      { now >= endDate && (
+        <Subtitle>
+          {t('The Ethereum PHA claiming DApp will be available shortly')}
+        </Subtitle>
+      )}
     </section>
   );
 }

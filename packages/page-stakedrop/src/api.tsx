@@ -73,7 +73,7 @@ export async function getStakeAmount(nominator: string): Promise<Response<StakeA
 }
 
 export const startDate = new Date('2020-05-15T10:00:00Z');
-export const endDate = new Date('2020-08-13T10:00:00Z');
+export const endDate = new Date('2020-08-05T10:00:00Z');
 export const startEra = 793;
 export const daysSinceStart = Math.ceil(((new Date()).getTime() - startDate.getTime()) / 24 / 3600 / 1000);
 
