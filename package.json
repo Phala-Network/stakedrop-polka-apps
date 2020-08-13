@@ -114,5 +114,9 @@
     "webpack-cli": "^3.3.12",
     "webpack-merge": "^4.2.2",
     "webpack-plugin-serve": "^1.0.1"
+  },
+  "dependencies": {
+    "@types/react-helmet": "^6.1.0",
+    "react-helmet": "^6.1.0"
   }
 }

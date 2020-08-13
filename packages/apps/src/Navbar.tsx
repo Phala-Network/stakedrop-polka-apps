@@ -10,6 +10,8 @@ const Bar = styled.nav`
   color: white;
   padding: 0 20px;
   font-size: 16px;
+  overflow-x: auto;
+  overflow-y: hidden;
 
   display: -ms-flexbox;
   display: -webkit-flex;
@@ -69,9 +71,9 @@ const Bar = styled.nav`
 
 import {useTranslation} from '@polkadot/app-stakedrop/translate';
 
-function toHome(element: any) {
+function toHome(element: any, index: number) {
   return (
-    <a href='https://phala.network/' className='no-color'>
+    <a key={index} href='https://phala.network/' className='no-color'>
       {element}
     </a>
   )

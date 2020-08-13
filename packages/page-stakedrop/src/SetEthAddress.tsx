@@ -1,11 +1,13 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { InputAddress, TxButton, Button } from '@polkadot/react-components';
 import { useTranslation } from './translate';
 import { Input } from 'semantic-ui-react'
 import styled from 'styled-components';
+import { Helmet } from 'react-helmet';
 
 import * as StakedropApi from './api';
+import { useAccounts } from '@polkadot/react-hooks';
 
 interface Props {
   
@@ -41,6 +43,9 @@ function SetEthAddress({}: Props): React.ReactElement<Props> {
   const [ethAddress, setEthAddress] = useState('');
   const [recordedEthAddress, setRecordedEthAddress] = useState('');
   const checked = checkParse(ethAddress);
+  const [mobileView, setMobileView] = useState<boolean>(false);
+
+  const { hasAccounts } = useAccounts();
 
   function _setAccountId (v: string | null) {
     if (v != accountId) {
@@ -63,16 +68,37 @@ function SetEthAddress({}: Props): React.ReactElement<Props> {
     setRecordedEthAddress(addr.eth_address);
   }
 
+  const onResize = useCallback(() => {
+    setMobileView((window.outerWidth < 750) || (window.outerWidth < window.outerHeight))
+  }, [setMobileView])
+
+  useEffect(() => {
+    if (!onResize) { return }
+
+    onResize()
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize);
+  }, [onResize])
+
   return (
     <>
+      <Helmet>
+        {mobileView ? <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" /> : <meta name="viewport" content="width=device-width, initial-scale=1" />}
+      </Helmet>
       <section>
         <div className='ui--row'>
-          <InputAddress
-            label={t<string>('using the selected account')}
-            onChange={_setAccountId}
-            type='account'
-            value={accountId}
-          />
+          {
+            hasAccounts
+              ? <InputAddress
+                label={t<string>('using the selected account')}
+                onChange={_setAccountId}
+                type='account'
+                value={accountId}
+              />
+              : <LeftPaddedDiv className='ui--row'>
+                <p>Please add an account first.</p>
+              </LeftPaddedDiv>
+          }
         </div>
         {recordedEthAddress && (
           <div className='ui--row'>

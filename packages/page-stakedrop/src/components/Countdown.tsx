@@ -12,10 +12,12 @@ const Headline = styled.div`
   margin-top: 37px;
   padding: 12px 1em 6px 1em;
   font-size: 36px;
-  height: 90px;
   font-weight: 300;
   text-align: center;
+  line-height: 42px;
+  min-height: 90px;
 `;
+
 const Subtitle = styled.div`
   font-size: 12px;
   text-align: center;

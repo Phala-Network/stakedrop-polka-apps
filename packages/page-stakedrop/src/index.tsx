@@ -5,7 +5,7 @@
 import { AppProps as Props } from '@polkadot/react-components/types';
 import { DeriveStakingOverview } from '@polkadot/api-derive/types';
 import { useApi, useCall, useStashIds } from '@polkadot/react-hooks';
-import Tabs from '@polkadot/react-components/Tabs';
+import _Tabs from '@polkadot/react-components/Tabs';
 import { Route, Switch } from 'react-router';
 
 import React, { useState, useEffect, useMemo } from 'react';
@@ -19,6 +19,7 @@ import Participate from './Participate';
 import Nomination from './Nomination';
 import SetEthAddress from './SetEthAddress';
 import * as StakedropApi from './api';
+import styled from 'styled-components';
 
 interface Validators {
   next?: string[];
@@ -79,6 +80,12 @@ function StakedropApp ({ className, basePath }: Props): React.ReactElement<Props
       text: t('Set Ethereum Address')
     },
   ];
+
+  const Tabs = styled(_Tabs)`
+    display: flex;
+    flex-flow: row wrap;
+    width: 100%;
+  `
 
   return (
     <main className={className}>
