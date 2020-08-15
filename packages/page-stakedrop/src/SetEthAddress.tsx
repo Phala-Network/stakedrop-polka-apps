@@ -45,13 +45,25 @@ function SetEthAddress({}: Props): React.ReactElement<Props> {
   const [recordedEthAddress, setRecordedEthAddress] = useState('');
   const checked = checkParse(ethAddress);
   const [mobileView, setMobileView] = useState<boolean>(false);
+  const [nominatorReward, setNominatorReward] = useState<{[key: string]: number}>({});
 
   const { hasAccounts } = useAccounts();
+
+  useEffect(() => {
+    (async () => {
+      const r = await StakedropApi.getStakedropRewards();
+      const map: {[key: string]: number} = {};
+      for (const x of r) {
+        map[x.nominator] = parseInt(x.pha);
+      }
+      setNominatorReward(map);
+    })()
+  }, []);
 
   function _setAccountId (v: string | null) {
     if (v != accountId) {
       if (v) {
-        updateRecordedEthAddress(v)
+        updateRecordedEthAddress(v);
       } else {
         setRecordedEthAddress('');
       }
@@ -101,10 +113,11 @@ function SetEthAddress({}: Props): React.ReactElement<Props> {
               </LeftPaddedDiv>
           }
         </div>
-        {recordedEthAddress && (
+        {(recordedEthAddress || (accountId && nominatorReward[accountId])) && (
           <div className='ui--row'>
             <FoundTip>
-              {t<string>('Linked ETH Address:')} <span className='eth-addr'>{recordedEthAddress}</span>
+              {recordedEthAddress && <div>{t<string>('Linked ETH Address:')} <span className='eth-addr'>{recordedEthAddress}</span></div>}
+              {accountId && nominatorReward[accountId] && <div>{t('Total PHA')}: {nominatorReward[accountId]}</div>}
             </FoundTip>
           </div>
         )}
