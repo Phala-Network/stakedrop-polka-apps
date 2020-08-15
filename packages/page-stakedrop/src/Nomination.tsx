@@ -38,6 +38,8 @@ function Nomination ({} :Props): React.ReactElement<Props> {
   });
   // const [{ bondedTotal, foundStashes }, setState] = useState<State>({});
   const [stashes, setStashes] = useState<NominatorStash[]>([]);
+  const [rewardResult, setRewardResult] = useState<StakedropAPI.StakedropReward[]>([]);
+  const [nominatorReward, setNominatorReward] = useState<{[key: string]: number}>({});
 
   useEffect(()=> {
     if (!hasAccounts || !activeEra) {
@@ -66,16 +68,17 @@ function Nomination ({} :Props): React.ReactElement<Props> {
     })();
 
     (async () => {
-      const r = await StakedropAPI.getTotalStaking(currentEra);
-      if (r.status == 'ok') {
-        const amount = r.result[0].total_amount / 1000;
-        setEventAmount(amount);
+      const r = await StakedropAPI.getStakedropRewards();
+      setRewardResult(r);
+      const map: {[key: string]: number} = {};
+      for (const x of r) {
+        map[x.nominator] = parseInt(x.pha);
       }
+      setNominatorReward(map);
     })();
   }, [allAccounts, activeEra])
 
   const [nowParticipated, setNowParticipated] = useState(0);
-  const [eventAmount, setEventAmount] = useState(0);
 
   const participated = useMemo((): number => {
     if (stashes.length == 0) {
@@ -91,20 +94,14 @@ function Nomination ({} :Props): React.ReactElement<Props> {
     return stashesMax.reduce((x, a) => x + a, 0);
   }, [nowParticipated, stashes]);
 
-  const [minPHA, estPHA30, estPHA90] = useMemo((): number[] => {
-    if (participated < 10) {
-      return [0, 0, 0];
+  const totalPHA = useMemo((): number => {
+    if (rewardResult.length == 0 || allAccounts.length == 0) {
+      console.log('early return', rewardResult.length, allAccounts.length)
+      return 0;
     }
-    const minDeorm = StakedropAPI.pointThreshold;
-    const estDenorm = Math.min(StakedropAPI.points(eventAmount, 90), StakedropAPI.pointThreshold);
-    const norm30 = StakedropAPI.points(participated, 30);
-    const norm90 = StakedropAPI.points(participated, 90);
-    return [
-      norm90 / minDeorm * 27000000,
-      estDenorm > 0 ? norm30 / estDenorm * 27000000 : 0,
-      estDenorm > 0 ? norm90 / estDenorm * 27000000 : 0,
-    ];
-  }, [participated, eventAmount]);
+    const myRewards = rewardResult.filter(r => allAccounts.includes(r.nominator));
+    return myRewards.map(r => parseInt(r.pha)).reduce((x, a) => x + a, 0);
+  }, [allAccounts, rewardResult]);
 
   const participatedPeriod = useMemo((): number => {
     const days= stashes
@@ -131,6 +128,7 @@ function Nomination ({} :Props): React.ReactElement<Props> {
           amounts[i] = amount / 1000;
         }
       });
+      const pha = nominatorReward[stash.nominator] || 0;
       
       const chartOptions = {
         color: '#d32e79',
@@ -154,13 +152,15 @@ function Nomination ({} :Props): React.ReactElement<Props> {
       return (
         <StashCard key={stash.nominator}>
           <h1>{t('Stash')} #{idx+1}</h1>
-          <p>{stash.nominator}</p>
+          <p>
+            {stash.nominator} <br/> {formatBalance(pha, {withUnit: 'PHA'}, 0)}
+          </p>
           <ReactEcharts option={chartOptions} />
         </StashCard>
       )
     })
 
-  }, [stashes]);
+  }, [stashes, nominatorReward]);
 
   return (
     <>
@@ -171,14 +171,8 @@ function Nomination ({} :Props): React.ReactElement<Props> {
         <CardSummary label={t('participated period')}>
           {participatedPeriod} days
         </CardSummary>
-        <CardSummary label={t('Minimal PHA (90d)')}>
-          {formatBalance(minPHA, {withUnit: 'PHA'}, 0)}
-        </CardSummary>
-        <CardSummary label={t('PHA reward est. (30d)')}>
-          {formatBalance(estPHA30, {withUnit: 'PHA'}, 0)}
-        </CardSummary>
-        <CardSummary label={t('PHA reward est. (90d)')}>
-          {formatBalance(estPHA90, {withUnit: 'PHA'}, 0)}
+        <CardSummary label={t('Total PHA')}>
+          {formatBalance(totalPHA, {withUnit: 'PHA'}, 0)}
         </CardSummary>
       </SummaryBox>
       <section>

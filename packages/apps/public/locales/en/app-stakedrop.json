@@ -35,6 +35,7 @@
   "The Ethereum address is used for you to claim the PHA stakedrop reward once the event ends.": "The Ethereum address is used for you to claim the PHA stakedrop reward once the event ends.",
   "The amount of KSM to participate Stakedrop": "The amount of KSM to participate Stakedrop",
   "Time to stake": "Time to stake",
+  "Total PHA": "Total PHA",
   "Warning: need at least 10 KSM to get stakedrop": "Warning: need at least 10 KSM to get stakedrop",
   "Warning: you have staked {{val}} KSM, less than the minimal requirement of 10 KSM.": "Warning: you have staked {{val}} KSM, less than the minimal requirement of 10 KSM.",
   "You can find the ongoing stakedrop status and historical data in this page. Reward stats and charts are coming soon.": "You can find the ongoing stakedrop status and historical data in this page. Reward stats and charts are coming soon.",

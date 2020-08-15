@@ -1,5 +1,6 @@
 import axios, {AxiosInstance} from 'axios';
 
+const stakedropJsonUrl = '/stakedrop.json';
 export const api: AxiosInstance =  axios.create({baseURL: 'https://stakedrop.phala.network/api/'});
 
 export interface Response<T> {
@@ -89,4 +90,23 @@ interface EthAddress {
 export type EthAddressResult = EthAddress[];
 export async function getEthAddress(account: string): Promise<Response<EthAddressResult>> {
   return await request<EthAddressResult>('eth_address', {account});
+}
+
+// [{"id":"674777", "nominator":"CczSz9z41uHpftVviWz91TgjLe3SmbvXfbAc958cjy7F6Qs", "end_era":"1160", "pha":"7422", "pha_est":"6995", "start_era":"793", "eras":"361"},
+export interface StakedropReward {
+  id: string;
+  nominator: string;
+  pha: string;
+  eras: string;
+  end_era: string;
+  start_era: string;
+}
+
+let cachedReward: StakedropReward[] = [];
+export async function getStakedropRewards(): Promise<StakedropReward[]> {
+  if (cachedReward.length == 0) {
+    const resp = await axios.get(stakedropJsonUrl)
+    cachedReward = resp.data as StakedropReward[];
+  }
+  return cachedReward;
 }
