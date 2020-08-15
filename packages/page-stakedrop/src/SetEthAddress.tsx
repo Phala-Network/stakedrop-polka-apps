@@ -21,6 +21,7 @@ const FoundTip = styled('p')`
 
   span.eth-addr {
     font-family: monospace;
+    overflow-wrap: anywhere;
   }
 `;
 
