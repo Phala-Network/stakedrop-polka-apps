@@ -14,8 +14,6 @@ import hardcodedWhitelist from './static/whitelist';
 import { useTranslation } from './translate';
 import Countdown from './components/Countdown';
 import Overview from './Overview';
-import Calculator from './Calculator';
-import Participate from './Participate';
 import Nomination from './Nomination';
 import SetEthAddress from './SetEthAddress';
 import * as StakedropApi from './api';
@@ -60,6 +58,10 @@ function StakedropApp ({ className, basePath }: Props): React.ReactElement<Props
   const tabItems = [
     {
       isRoot: true,
+      name: 'overview',
+      text: t('Overview')
+    },
+    {
       name: 'nomination',
       text: t('My Nomination')
     },
@@ -93,7 +95,11 @@ function StakedropApp ({ className, basePath }: Props): React.ReactElement<Props
           <SetEthAddress/>
         </Route>
         <Route>
-          <Nomination/>
+          <Overview
+            next={next}
+            stakingOverview={stakingOverview}
+            whitelist={whitelist}
+          />
         </Route>
       </Switch>
 
