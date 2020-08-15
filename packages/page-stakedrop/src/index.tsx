@@ -60,18 +60,6 @@ function StakedropApp ({ className, basePath }: Props): React.ReactElement<Props
   const tabItems = [
     {
       isRoot: true,
-      name: 'overview',
-      text: t('Overview')
-    },
-    {
-      name: 'calculator',
-      text: t('Calculator')
-    },
-    {
-      name: 'stake',
-      text: t('Participate')
-    },
-    {
       name: 'nomination',
       text: t('My Nomination')
     },
@@ -98,14 +86,6 @@ function StakedropApp ({ className, basePath }: Props): React.ReactElement<Props
       </header>
       
       <Switch>
-        <Route path={`${basePath}/calculator`}>
-          <Calculator basePath={basePath} />
-        </Route>
-        <Route path={`${basePath}/stake`}>
-          <Participate
-            whitelist={whitelist}
-          />
-        </Route>
         <Route path={`${basePath}/nomination`}>
           <Nomination/>
         </Route>
@@ -113,11 +93,7 @@ function StakedropApp ({ className, basePath }: Props): React.ReactElement<Props
           <SetEthAddress/>
         </Route>
         <Route>
-          <Overview
-            next={next}
-            stakingOverview={stakingOverview}
-            whitelist={whitelist}
-          />
+          <Nomination/>
         </Route>
       </Switch>
 
