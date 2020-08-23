@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { InputAddress, TxButton, Button } from '@polkadot/react-components';
 import { useTranslation } from './translate';
 import { Input } from 'semantic-ui-react'
@@ -93,6 +93,13 @@ function SetEthAddress({}: Props): React.ReactElement<Props> {
     return () => window.removeEventListener('resize', onResize);
   }, [onResize])
 
+  const stashHasReward = useMemo((): boolean => {
+    if (!accountId || !nominatorReward) {
+      return false;
+    }
+    return accountId in nominatorReward;
+  }, [accountId, nominatorReward]);
+
   return (
     <>
       <Helmet>
@@ -126,6 +133,7 @@ function SetEthAddress({}: Props): React.ReactElement<Props> {
             value={ethAddress}
             error={!checked}
             label={{content: t<string>('Your Ethereum addess'), color: 'teal'}}
+            disabled={!stashHasReward}
             onChange={(_, {value}) => setEthAddress(value)}
           />
         </LeftPaddedDiv>
@@ -134,7 +142,7 @@ function SetEthAddress({}: Props): React.ReactElement<Props> {
             <TxButton
               accountId={accountId}
               icon='sign-in-alt'
-              isDisabled={!checked}
+              isDisabled={!checked || !stashHasReward}
               isPrimary
               label={t<string>('Submit')}
               params={[toHexString(ethAddress)]}
