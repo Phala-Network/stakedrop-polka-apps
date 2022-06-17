@@ -99,7 +99,7 @@
     "concurrently": "^5.2.0",
     "devtron": "^1.4.0",
     "dnslink-cloudflare": "^2.0.4",
-    "electron": "^9.1.0",
+    "electron": "^15.5.5",
     "electron-builder": "^22.8.0",
     "electron-builder-notarize": "^1.2.0",
     "i18next-scanner": "^2.11.0",
